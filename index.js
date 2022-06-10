@@ -44,6 +44,24 @@ const time = getFormattedTime();
 
   const collection = document.querySelector('.collection');
   collection.insertAdjacentHTML('afterbegin', newHtml);
+  addItemsToLocalStorage(type, desc, value, time);
+}
+
+function getItemsFromLocalStorage() {
+  let items = localStorage.getItem('items');
+  if (items) {
+    items =  JSON.parse(items);
+  }else{
+    items = [];
+  }
+  return items;
+
+}
+
+function addItemsToLocalStorage(type, desc, value, time) {
+  let items = getItemsFromLocalStorage();
+  items.push({ type, desc, value, time });
+  localStorage.setItem('items', JSON.stringify(items));
 }
 
 function resetForm() {
