@@ -25,7 +25,29 @@ document.querySelector('#ewallet-form').addEventListener('submit',
       resetForm();
     }
     });
+showItems();
+function showItems(){
+  const items = getItemsFromLocalStorage();
+  const collection = document.querySelector('.collection');
+  for(item of items){
+    const newHtml = `
+         <div class="item">
+          <div class="item-description-time">
+            <div class="item-description">
+              <p>${item.desc}</p>
+            </div>
+            <div class="item-time">
+              <p>${item.time}</p>
+            </div>
+          </div>
+          <div class="item-amount ${item.type ==='+' ? 'income-amount' : 'expense-amount'}">
+            <p>${item.type}$${item.value}</p>
+          </div>`
 
+    collection.insertAdjacentHTML('afterbegin', newHtml);
+  }
+
+}
 function addItems(type, desc, value){
 const time = getFormattedTime();
   const newHtml = `
