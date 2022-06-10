@@ -1,3 +1,16 @@
+function getFormattedTime() {
+  const now = new Date().toLocaleDateString('en-US',{
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const date = now.split(',')[0].split(' ');
+  const time = now.split(',')[1];
+  return `${date[1]} ${date[0]} , ${time}`;
+}
+
 document.querySelector('#ewallet-form').addEventListener('submit',
     function(e) {
     e.preventDefault();
@@ -5,6 +18,7 @@ document.querySelector('#ewallet-form').addEventListener('submit',
       const type= document.querySelector('.add__type').value;
       const desc= document.querySelector('.add__description').value;
       const value= document.querySelector('.add__value').value;
+      getFormattedTime();
 
     if (desc.length > 0 && value.length > 0) {
       addItems(type, desc, value);
@@ -13,7 +27,7 @@ document.querySelector('#ewallet-form').addEventListener('submit',
     });
 
 function addItems(type, desc, value){
-
+const time = getFormattedTime();
   const newHtml = `
          <div class="item">
           <div class="item-description-time">
@@ -21,7 +35,7 @@ function addItems(type, desc, value){
               <p>${desc}</p>
             </div>
             <div class="item-time">
-              <p>25 Feb, 06:45 PM</p>
+              <p>${time}</p>
             </div>
           </div>
           <div class="item-amount ${type ==='+' ? 'income-amount' : 'expense-amount'}">
@@ -38,16 +52,3 @@ function resetForm() {
   document.querySelector('.add__value').value = '';
 }
 
-
-// <div className="item">
-//     <div className="item-description-time">
-//         <div className="item-description">
-//             <p>Buy a physics book</p>
-//         </div>
-//         <div className="item-time">
-//             <p>25 Feb, 06:45 PM</p>
-//         </div>
-//     </div>
-//     <div className="item-amount expense-amount">
-//         <p>-$78</p>
-//     </div>
