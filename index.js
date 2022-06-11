@@ -103,7 +103,7 @@ function showTotalIncome() {
         totalIncome += parseInt(item.value);
       }
     }
-    document.querySelector('.income__amount p').innerHTML = `$${totalIncome}`;
+    document.querySelector('.income__amount p').innerHTML = `$${sep(totalIncome)}`;
 }
 showTotalExpense();
 function showTotalExpense() {
@@ -114,7 +114,7 @@ function showTotalExpense() {
         totalExpense += parseInt(item.value);
       }
     }
-    document.querySelector('.expense__amount p').innerHTML = `$${totalExpense}`;
+    document.querySelector('.expense__amount p').innerHTML = `$${sep(totalExpense)}`;
 }
 
 showTotalBalance();
@@ -129,7 +129,7 @@ function showTotalBalance() {
       totalBalance -= parseInt(item.value);
     }
   }
-  document.querySelector('.balance__amount p').innerHTML = `$${totalBalance}`;
+  document.querySelector('.balance__amount p').innerHTML = `$${sep(totalBalance)}`;
 
   // if (totalBalance >= 0) {
   //   document.querySelector('header').className = 'green';
@@ -137,4 +137,8 @@ function showTotalBalance() {
   //   document.querySelector('header').className = 'red';
   // }
   document.querySelector('header').classList = (totalBalance >= 0) ? 'green' : 'red';
+}
+function sep(amount){
+  amount = parseInt(amount);
+  return amount.toLocaleString();
 }
