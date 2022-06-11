@@ -69,6 +69,7 @@ const time = getFormattedTime();
   addItemsToLocalStorage(type, desc, value, time);
   showTotalIncome();
   showTotalExpense();
+  showTotalBalance();
 }
 
 function getItemsFromLocalStorage() {
@@ -116,3 +117,24 @@ function showTotalExpense() {
     document.querySelector('.expense__amount p').innerHTML = `$${totalExpense}`;
 }
 
+showTotalBalance();
+function showTotalBalance() {
+  let items = getItemsFromLocalStorage();
+  let totalBalance = 0;
+  for (item of items) {
+    if (item.type === '+') {
+      totalBalance += parseInt(item.value);
+    }
+    if (item.type === '-') {
+      totalBalance -= parseInt(item.value);
+    }
+  }
+  document.querySelector('.balance__amount p').innerHTML = `$${totalBalance}`;
+
+  // if (totalBalance >= 0) {
+  //   document.querySelector('header').className = 'green';
+  // } else {
+  //   document.querySelector('header').className = 'red';
+  // }
+  document.querySelector('header').classList = (totalBalance >= 0) ? 'green' : 'red';
+}
