@@ -67,6 +67,8 @@ const time = getFormattedTime();
   const collection = document.querySelector('.collection');
   collection.insertAdjacentHTML('afterbegin', newHtml);
   addItemsToLocalStorage(type, desc, value, time);
+  showTotalIncome();
+  showTotalExpense();
 }
 
 function getItemsFromLocalStorage() {
@@ -90,5 +92,27 @@ function resetForm() {
   document.querySelector('.add__type').value = '+';
   document.querySelector('.add__description').value = '';
   document.querySelector('.add__value').value = '';
+}
+showTotalIncome();
+function showTotalIncome() {
+  let items = getItemsFromLocalStorage();
+    let totalIncome = 0;
+    for (item of items) {
+      if (item.type === '+') {
+        totalIncome += parseInt(item.value);
+      }
+    }
+    document.querySelector('.income__amount p').innerHTML = `$${totalIncome}`;
+}
+showTotalExpense();
+function showTotalExpense() {
+  let items = getItemsFromLocalStorage();
+    let totalExpense = 0;
+    for (item of items) {
+      if (item.type === '-') {
+        totalExpense += parseInt(item.value);
+      }
+    }
+    document.querySelector('.expense__amount p').innerHTML = `$${totalExpense}`;
 }
 
